@@ -13,12 +13,17 @@ public class RoadNetwork {
         adjacency.putIfAbsent(name, new ArrayList<>());
     }
 
-    public void addRoad(String from, String to, double travelMinutes) {
+    public void addRoad(String from, String to, double travelMinutes)
+     {
+         if (!Double.isFinite(travelMinutes) || travelMinutes < 0) {
+    throw new IllegalArgumentException(
+        "Travel time must be finite and non-negative"
+    );
+}
         addIntersection(from);
         addIntersection(to);
+       
 
-        // Intentional Qodo review target: road cost is not validated yet.
-        // A negative, NaN, or infinite cost can make route calculations unreliable.
         adjacency.get(from).add(new Road(to, travelMinutes));
         adjacency.get(to).add(new Road(from, travelMinutes));
     }
