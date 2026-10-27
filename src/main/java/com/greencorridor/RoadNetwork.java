@@ -16,6 +16,11 @@ public class RoadNetwork {
     public void addRoad(String from, String to, double travelMinutes) {
         addIntersection(from);
         addIntersection(to);
+        if (!Double.isFinite(travelMinutes) || travelMinutes < 0) {
+    throw new IllegalArgumentException(
+        "Travel time must be finite and non-negative"
+    );
+}
 
         // Intentional Qodo review target: road cost is not validated yet.
         // A negative, NaN, or infinite cost can make route calculations unreliable.
